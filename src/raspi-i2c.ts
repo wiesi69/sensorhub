@@ -53,54 +53,54 @@ function readSensors() {
 
 
 
-    var receiveBuffer: Array<number> = new Array();
+    var register: Array<number> = new Array();
 
     init(() => {
         const i2c = new I2C();
 
-        for (let registerIndex = TEMP_REG; registerIndex <= MOTION_DETECT; registerIndex++) {
-            let data: number = i2c.readByteSync(DEVICE_ADDR, registerIndex);
-            receiveBuffer[registerIndex] = data;
+        for (let i = TEMP_REG; i <= MOTION_DETECT; i++) {
+            let data: number = i2c.readByteSync(DEVICE_ADDR, i);
+            register[i] = data;
 
-            console.log(`Read from register ${registerIndex.toString(16)}: ${data}`);
+            console.log(`Read from register ${i.toString(16)}: ${data}`);
         };
 
-        if (receiveBuffer[STATUS_REG] & T_OVR) {
+        if (register[STATUS_REG] & T_OVR) {
             console.log('Off-chip temperature sensor overrange!');
         }
-        else if (receiveBuffer[STATUS_REG] & T_FAIL) {
+        else if (register[STATUS_REG] & T_FAIL) {
             console.log('No external temperature sensor!');
         }
         else {
-            var offBoardTemperature: number = receiveBuffer[TEMP_REG];
+            var offBoardTemperature: number = register[TEMP_REG];
             console.log(`Current external Sensor Temperature = ${offBoardTemperature} Celsius`);
         }
 
-        if (receiveBuffer[STATUS_REG] & L_OVR) {
+        if (register[STATUS_REG] & L_OVR) {
             console.log('Onboard brightness sensor overrange!');
         }
-        else if (receiveBuffer[STATUS_REG] & L_FAIL) {
+        else if (register[STATUS_REG] & L_FAIL) {
             console.log('Onboard brightness sensor failure!');
         }
         else {
-            var brightness: number = (receiveBuffer[LIGHT_REG_H] << 8) | (receiveBuffer[LIGHT_REG_L]);
+            var brightness: number = (register[LIGHT_REG_H] << 8) | (register[LIGHT_REG_L]);
             console.log(`Current onboard sensor brightness = ${brightness} Lux`);
         }
 
-        var onBoardTemperature: number = receiveBuffer[ON_BOARD_TEMP_REG];
-        var onBoardHumiditiy: number = receiveBuffer[ON_BOARD_HUMIDITY_REG];
+        var onBoardTemperature: number = register[ON_BOARD_TEMP_REG];
+        var onBoardHumiditiy: number = register[ON_BOARD_HUMIDITY_REG];
         console.log(`Current onboard sensor temperature = ${onBoardTemperature} Celsius`);
         console.log(`Current onboard sensor humidity = ${onBoardHumiditiy} %`);
 
-        if (receiveBuffer[ON_BOARD_SENSOR_ERROR] != 0) {
+        if (register[ON_BOARD_SENSOR_ERROR] != 0) {
             console.log('Onboard temperature and humidity sensor data may not be up to date!');
         }
 
 
 
-        if (receiveBuffer[BMP280_STATUS] == 0) {
-            var bmp280Temperature: number = receiveBuffer[BMP280_TEMP_REG];
-            var bmp289Pressure: number = receiveBuffer[BMP280_PRESSURE_REG_L] | (receiveBuffer[BMP280_PRESSURE_REG_M] << 8) | (receiveBuffer[BMP280_PRESSURE_REG_H] << 16);
+        if (register[BMP280_STATUS] == 0) {
+            var bmp280Temperature: number = register[BMP280_TEMP_REG];
+            var bmp289Pressure: number = register[BMP280_PRESSURE_REG_L] | (register[BMP280_PRESSURE_REG_M] << 8) | (register[BMP280_PRESSURE_REG_H] << 16);
             console.log(`Current barometer temperature = ${bmp280Temperature} Celsius`);
             console.log(`Current barometer pressure = ${bmp289Pressure} Pascal`);
         }
@@ -108,11 +108,11 @@ function readSensors() {
             console.log('Onboard BMP280 barometer works abnormally!');
         }
 
-        if (receiveBuffer[MOTION_DETECT] == 1) {
+        if (register[MOTION_DETECT] == 1) {
             console.log('Motion detected within 5 seconds!');
         }
         else {
-            console.log('No motion detecte!');
+            console.log('No motion detected!');
         }
 
 
