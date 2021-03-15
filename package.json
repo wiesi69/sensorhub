@@ -9,9 +9,25 @@
   },
   "author": "Jürgen Wiesmaier <juergen@wiesi.de>",
   "license": "GPL-3.0",
+  "keywords": [
+    "SensorHub",
+    "Raspberry",
+    "Pi"
+  ],
+  "files": [
+    "LICENSE",
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/wiesi69/homebridge-sensorhub.git"
+  },
+  "bugs": {
+    "url": "http://github.com/wiesi69/homebridge-sensorhub/issues"
+  },
   "dependencies": {
     "i2c-bus": "^5.2.1",
-    "typescript": "^4.2.3"
+    "raspi-i2c": "^6.2.4"
   },
   "devDependencies": {
     "@types/i2c-bus": "^5.1.0",
