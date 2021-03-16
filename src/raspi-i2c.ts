@@ -7,7 +7,7 @@ import { I2C } from 'raspi-i2c';
 readSensors();
 
 
-setInterval(() => { readSensors() }, 5000);
+setInterval(() => { readSensors() }, 10000);
 
 function readSensors() {
 
