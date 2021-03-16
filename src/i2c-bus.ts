@@ -45,11 +45,12 @@ function readSensors() {
 
 
     // Sensor Data Corrections
-    const TEMP_COR = -2;
-    const LIGHT_COR = 0;
-    const ON_BOARD_TEMP_COR = -7;
-    const ON_BOARD_HUMIDITY_COR = 0;
+    const TEMP_COR = -3;
+    const ON_BOARD_TEMP_COR = -6;
+    const BMP280_TEMP_COR = -8;
 
+
+    
 
 
     var receiveBuffer: Array<number> = new Array();
@@ -57,6 +58,9 @@ function readSensors() {
     const i2cBus = i2c.open(DEVICE_BUS, error => {
         if (error) throw error;
     });
+
+
+
 
     for (let registerIndex = TEMP_REG; registerIndex <= MOTION_DETECT; registerIndex++) {
 

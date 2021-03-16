@@ -63,8 +63,8 @@ function readSensors() {
 
     i2c.openPromisified(DEVICE_BUS)
         .then(i2cBus => i2cBus.i2cRead(DEVICE_ADDR, REGISTER_LENGTH, buffer)
-            .then(rawData => {
-                console.log(rawData);
+            .then(bytesRead => {
+                console.log(bytesRead);
                 console.log(buffer)
             })
             .then(_ => i2cBus.close())

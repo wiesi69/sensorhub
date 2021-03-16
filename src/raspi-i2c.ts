@@ -46,10 +46,10 @@ function readSensors() {
 
 
     // Sensor Data Corrections
-    const TEMP_COR = -2;
-    const LIGHT_COR = 0;
-    const ON_BOARD_TEMP_COR = -7;
-    const ON_BOARD_HUMIDITY_COR = 0;
+    const TEMP_COR = -3;
+    const ON_BOARD_TEMP_COR = -6;
+    const BMP280_TEMP_COR = -8;
+
 
 
 
@@ -72,7 +72,7 @@ function readSensors() {
             console.log('No external temperature sensor!');
         }
         else {
-            var offBoardTemperature: number = register[TEMP_REG];
+            var offBoardTemperature: number = register[TEMP_REG] + TEMP_COR;
             console.log(`Current external Sensor Temperature = ${offBoardTemperature} Celsius`);
         }
 
@@ -87,7 +87,7 @@ function readSensors() {
             console.log(`Current onboard sensor brightness = ${brightness} Lux`);
         }
 
-        var onBoardTemperature: number = register[ON_BOARD_TEMP_REG];
+        var onBoardTemperature: number = register[ON_BOARD_TEMP_REG] + ON_BOARD_TEMP_COR;
         var onBoardHumiditiy: number = register[ON_BOARD_HUMIDITY_REG];
         console.log(`Current onboard sensor temperature = ${onBoardTemperature} Celsius`);
         console.log(`Current onboard sensor humidity = ${onBoardHumiditiy} %`);
@@ -99,7 +99,7 @@ function readSensors() {
 
 
         if (register[BMP280_STATUS] == 0) {
-            var bmp280Temperature: number = register[BMP280_TEMP_REG];
+            var bmp280Temperature: number = register[BMP280_TEMP_REG] + BMP280_TEMP_COR;
             var bmp289Pressure: number = register[BMP280_PRESSURE_REG_L] | (register[BMP280_PRESSURE_REG_M] << 8) | (register[BMP280_PRESSURE_REG_H] << 16);
             console.log(`Current barometer temperature = ${bmp280Temperature} Celsius`);
             console.log(`Current barometer pressure = ${bmp289Pressure} Pascal`);
