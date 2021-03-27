@@ -2,13 +2,13 @@
   "name": "sensorhub",
   "version": "0.0.1",
   "description": "SensorHub testing module",
-  "main": "probets.js",
+  "main": "./dist/raspi-i2c.js",
   "scripts": {
     "build": "rimraf ./dist && tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Jürgen Wiesmaier <juergen@wiesi.de>",
-  "license": "GPL-3.0",
+  "license": "MIT",
   "keywords": [
     "SensorHub",
     "Raspberry",
